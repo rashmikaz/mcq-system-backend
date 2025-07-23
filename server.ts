@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import userRoute from "./routes/user-route";
+import examRoute from "./routes/exam-route";
 
 const app = express();
 
@@ -15,6 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/user",userRoute);
+app.use("/exam",examRoute);
 
 app.listen(3000, () => {
     console.log("Express server running at http://localhost:3000");
