@@ -23,3 +23,14 @@ export async function questionSave(q: Question) {
         throw err;
     }
 }
+
+export async function getQuestionsByExamId(examId: number) {
+    try {
+        return await prisma.question.findMany({
+            where: { examId: examId },
+        });
+    } catch (err) {
+        console.error("Error getting questions by examId:", err);
+        throw err;
+    }
+}

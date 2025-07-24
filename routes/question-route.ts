@@ -1,7 +1,7 @@
 import express from "express";
 import { questionSave } from "../database/Question-data-store";
 import { PrismaClient } from "@prisma/client";
-
+import { getQuestionsByExamId } from "../database/Question-data-store";
 const prisma = new PrismaClient();
 const router = express.Router();
 
@@ -20,9 +20,7 @@ router.post("/add", async (req, res) => {
 router.get("/exam/:examId", async (req, res) => {
     const examId = parseInt(req.params.examId);
     try {
-        const questions = await prisma.question.findMany({
-            where: { examId: examId }
-        });
+        const questions = await getQuestionsByExamId(examId);
         res.json(questions);
     } catch (err) {
         res.status(500).json({ message: "Failed to fetch questions" });
